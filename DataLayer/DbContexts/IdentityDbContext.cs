@@ -14,9 +14,15 @@ public class IdentityDbContext : IdentityDbContext<HelpdeskUser>
     public DbSet<ProjectRole> ProjectRoles { get; set; }
     public DbSet<Incident> Incidents { get; set; }
     
+    public IdentityDbContext()
+    {
+
+    }
+
     public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
 		: base(options)
 	{
+
 	}
 
 	protected override void OnModelCreating(ModelBuilder builder)
