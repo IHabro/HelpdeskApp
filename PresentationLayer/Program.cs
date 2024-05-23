@@ -1,6 +1,7 @@
 using DataLayer.Areas.Identity.Data;
 using DataLayer.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace PresentationLayer
 {
@@ -39,6 +40,7 @@ namespace PresentationLayer
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}");
 
+			app.MapRazorPages();
 			app.Run();
 		}
 	}

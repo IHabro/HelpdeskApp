@@ -16,6 +16,10 @@ public class HelpdeskUser : IdentityUser
     [Column(TypeName = "nvarchar(127)")]
     public required string LastName { get; set; }
 
+    [ForeignKey("ActiveProjectId")]
+    public int? ActiveProject_Fk { get; set; }
+    public Project? ActiveProject { get; set; } = null!;
+
     public List<Incident> Incidents { get; set; } = new List<Incident>();
     public List<EscalationAction> Actions { get; set; } = new List<EscalationAction>();
 

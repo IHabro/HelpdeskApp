@@ -1,5 +1,7 @@
 ﻿using DataLayer.Areas.Identity.Data;
+using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Security.AccessControl;
 
 namespace DataLayer.Repositories
 {
@@ -34,7 +36,7 @@ namespace DataLayer.Repositories
 
         public IQueryable<HelpdeskUser> GetAll()
         {
-            return _dbSet.Include(u => u.Incidents).Include(u => u.Actions).Include(u => u.RolesInProjects);
+            return _dbSet.Include(u => u.Incidents).Include(u => u.Actions).Include(u => u.RolesInProjects).Include(u => u.ActiveProject);
         }
 
         public HelpdeskUser? GetById(object id)
@@ -42,7 +44,7 @@ namespace DataLayer.Repositories
             if (id == null)
                 return null;
 
-            return _dbSet.Include(u => u.Incidents).Include(u => u.Actions).Include(u => u.RolesInProjects).FirstOrDefault(u => u.Id == id.ToString());
+            return _dbSet.Include(u => u.Incidents).Include(u => u.Actions).Include(u => u.RolesInProjects).Include(u => u.ActiveProject).FirstOrDefault(u => u.Id == id.ToString());
         }
 
         public void Insert(HelpdeskUser entity)
@@ -58,6 +60,28 @@ namespace DataLayer.Repositories
         public void Update(HelpdeskUser entity)
         {
             _dbSet.Update(entity);
+        }
+
+        public void SetActiveProjectForUser(Project? project, HelpdeskUser? user)
+        {
+            if (project == null || user == null)
+                return;
+
+            user.ActiveProject = project;
+            user.ActiveProject_Fk = project.Id;
+
+            Update(user);
+        }
+
+        public void RemoveActiveProjecyForUser(HelpdeskUser? user)
+        {
+            if (user == null)
+                return;
+
+            user.ActiveProject_Fk = null;
+            user.ActiveProject = null;
+
+            Update(user);
         }
     }
 }
