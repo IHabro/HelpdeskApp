@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DataLayer.Areas.Identity.Data
+@using DataLayer.Models;
+
+@inject SignInManager<HelpdeskUser> SignInManager
+@inject UserManager<HelpdeskUser> UserManager
+
+@{
+    HelpdeskUser? currentUser = await UserManager.GetUserAsync(User);
+    Project? activeProject = currentUser != null ? currentUser.ActiveProject : null;
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="ProjectRoles" asp-action="Index">Project Roles</a>
+    </li>
+    if (activeProject != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">@activeProject.Name Role Management</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="ProjectChoice" asp-action="Index">Active Project Choice</a>
+        </li>
+    }
+}

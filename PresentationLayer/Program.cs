@@ -12,7 +12,7 @@ namespace PresentationLayer
 			var builder = WebApplication.CreateBuilder(args);
 			var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
 
-			builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(connectionString));
+			builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(connectionString).LogTo(Console.WriteLine));
 
 			builder.Services.AddDefaultIdentity<HelpdeskUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
 

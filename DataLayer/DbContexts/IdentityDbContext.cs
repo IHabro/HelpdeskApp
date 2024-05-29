@@ -42,5 +42,6 @@ public class IdentityDbContext : IdentityDbContext<HelpdeskUser>
         builder.Entity<ActionToProjectToRole>().HasOne(jt => jt.Project).WithMany(p => p.ActionOnRoleInProject).HasForeignKey(jt => jt.Project_Fk);
         builder.Entity<ActionToProjectToRole>().HasOne(jt => jt.Role).WithMany(r => r.ActionForProjectAndRole).HasForeignKey(jt => jt.Role_Fk);
 
+        builder.Entity<HelpdeskUser>().HasOne(u => u.ActiveProject).WithMany().HasForeignKey(u => u.ActiveProject_Fk);
     }
 }
