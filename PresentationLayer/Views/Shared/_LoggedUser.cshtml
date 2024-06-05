@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@using DataLayer.DbContexts
+@using DataLayer.Repositories
+@using Microsoft.AspNetCore.Identity
 @using DataLayer.Areas.Identity.Data
 @using DataLayer.Models;
 
@@ -6,8 +8,15 @@
 @inject UserManager<HelpdeskUser> UserManager
 
 @{
+    // ToDo: Find reason why UserManager does not return all navigation properties
     HelpdeskUser? currentUser = await UserManager.GetUserAsync(User);
-    Project? activeProject = currentUser != null ? currentUser.ActiveProject : null;
+
+    if (currentUser != null)
+    {
+        IdentityDbContextFactory factory = new IdentityDbContextFactory();
+        UserRepository userRepository = new UserRepository(factory.CreateDbContext(new string[0]));
+        currentUser = userRepository.GetById(currentUser.Id);
+    }
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -15,10 +24,10 @@
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="ProjectRoles" asp-action="Index">Project Roles</a>
     </li>
-    if (activeProject != null)
+    if (currentUser != null && currentUser.ActiveProject != null)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">@activeProject.Name Role Management</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">[@currentUser.ActiveProject.Name] Role Management</a>
         </li>
     }
     else
