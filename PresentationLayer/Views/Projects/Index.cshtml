@@ -1,0 +1,100 @@
+﻿@using DataLayer.Areas.Identity.Data
+@using DataLayer.DbContexts
+@using DataLayer.Repositories
+@using Microsoft.AspNetCore.Identity
+
+@model ProjectRolesViewModel
+
+@inject UserManager<HelpdeskUser> UserManager
+
+@{
+    ViewData["Title"] = "Project Role Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // ToDo: Find reason why UserManager does not return all navigation properties
+    var currentUser = await UserManager.GetUserAsync(User);
+
+    if (currentUser != null)
+    {
+        var factory = new IdentityDbContextFactory();
+        var userRepository = new UserRepository(factory.CreateDbContext(new string[0]));
+        currentUser = userRepository.GetById(currentUser.Id);
+    }
+}
+
+<h1>@currentUser.ActiveProject.Name Role Management</h1>
+
+<h2>Available Roles to add to project</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Excluded.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Excluded.First().Description)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Excluded)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Include" asp-route-roleId="@item.Id">Include Role</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>User Roles available inside the project</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Included.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Included.First().Description)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Included)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @{
+                        if (item.Name == "Admin")
+                        {
+                            <p>Admin role cannot be Excluded</p>
+                        }
+                        else
+                        {
+                            <a asp-action="Exclude" asp-route-roleId="@item.Id">Exclude Role</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -6,13 +6,13 @@ using DataLayer.Repositories;
 namespace DataLayer.UnitOfWorks
 {
     // ToDo: Should probably be inside Business Layer since these classes will contain all logic + are middle man between DataLayer and PresentationLayer
-    public class ActiveProjectUoW : IUnitOfWork
+    public class ActiveProject_UoW : IUnitOfWork
     {
         private IdentityDbContext _context;
         private ProjectRepository _projectRepository;
         private UserRepository _userRepository;
 
-        public ActiveProjectUoW(IdentityDbContext context)
+        public ActiveProject_UoW(IdentityDbContext context)
         {
             _context = context;
             _projectRepository = new ProjectRepository(context);
@@ -55,7 +55,7 @@ namespace DataLayer.UnitOfWorks
 
         public void Dispose()
         {
-
+            _context.Dispose();
         }
 
         public int SaveChanges()

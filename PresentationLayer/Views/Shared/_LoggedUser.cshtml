@@ -27,13 +27,16 @@
     if (currentUser != null && currentUser.ActiveProject != null)
     {
         <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="ProjectChoice" asp-action="Index">Change Active Project</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Projects" asp-action="Index">[@currentUser.ActiveProject.Name] Role Management</a>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="ProjectChoice" asp-action="Index">Active Project Choice</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="ProjectChoice" asp-action="Index">Choose Active Project</a>
         </li>
     }
 }
