@@ -16,13 +16,13 @@ namespace PresentationLayer.Controllers
         }
 
         // GET: ProjectRoles
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View(_roleRepository.GetAll().ToList());
         }
 
         // GET: ProjectRoles/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -49,7 +49,7 @@ namespace PresentationLayer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] ProjectRole projectRole)
+        public IActionResult Create([Bind("Id,Name,Description")] ProjectRole projectRole)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace PresentationLayer.Controllers
         }
 
         // GET: ProjectRoles/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -84,7 +84,7 @@ namespace PresentationLayer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] ProjectRole projectRole)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description")] ProjectRole projectRole)
         {
             if (id != projectRole.Id)
             {
@@ -115,7 +115,7 @@ namespace PresentationLayer.Controllers
         }
 
         // GET: ProjectRoles/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -134,7 +134,7 @@ namespace PresentationLayer.Controllers
         // POST: ProjectRoles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             var projectRole = _roleRepository.GetById(id);
 

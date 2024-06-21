@@ -1,6 +1,6 @@
 ﻿using DataLayer.Areas.Identity.Data;
 using DataLayer.DbContexts;
-using DataLayer.UnitOfWorks;
+using BusinessLayer.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

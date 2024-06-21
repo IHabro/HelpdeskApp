@@ -1,6 +1,6 @@
-﻿using DataLayer.Areas.Identity.Data;
+﻿using BusinessLayer.UnitOfWorks;
+using DataLayer.Areas.Identity.Data;
 using DataLayer.DbContexts;
-using DataLayer.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +8,8 @@ namespace PresentationLayer.Controllers
 {
     public class ProjectChoiceController : Controller
     {
-        private ActiveProject_UoW _activeProjectUoW;
-        private UserManager<HelpdeskUser> _userManager;
+        private readonly ActiveProject_UoW _activeProjectUoW;
+        private readonly UserManager<HelpdeskUser> _userManager;
 
         public ProjectChoiceController(IdentityDbContext context, UserManager<HelpdeskUser> userManager)
         {
