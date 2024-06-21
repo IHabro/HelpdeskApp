@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.divider {
+    width: 1px;
+    background-color: #000; /* Adjust color as needed */
+    margin: 0 10px;
+}
