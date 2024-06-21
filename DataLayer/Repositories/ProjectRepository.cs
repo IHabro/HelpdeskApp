@@ -34,7 +34,7 @@ namespace DataLayer.Repositories
 
         public IQueryable<Project> GetAll()
         {
-            return _dbSet.Include(p => p.Incidents).Include(p => p.UsersAndRoles).Include(p => p.Roles).Include(p => p.ActionOnRoleInProject);
+            return _dbSet.Include(p => p.Incidents).Include(p => p.Roles).Include(p => p.UsersAndRoles).Include(p => p.ActionOnRoleInProject);
         }
 
         public Project? GetById(object id)
@@ -42,7 +42,7 @@ namespace DataLayer.Repositories
             if (id == null)
                 return null;
 
-            return _dbSet.Include(p => p.Incidents).Include(p => p.UsersAndRoles).Include(p => p.Roles).Include(p => p.ActionOnRoleInProject).FirstOrDefault(p => p.Id == Convert.ToInt32(id));
+            return _dbSet.Include(p => p.Incidents).Include(p => p.Roles).Include(p => p.UsersAndRoles).Include(p => p.ActionOnRoleInProject).FirstOrDefault(p => p.Id == Convert.ToInt32(id));
         }
 
         public void Insert(Project entity)

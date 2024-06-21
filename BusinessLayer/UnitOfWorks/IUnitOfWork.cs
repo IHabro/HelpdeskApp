@@ -1,4 +1,4 @@
-﻿namespace DataLayer.UnitOfWorks
+﻿namespace BusinessLayer.UnitOfWorks
 {
     internal interface IUnitOfWork : IDisposable
     {

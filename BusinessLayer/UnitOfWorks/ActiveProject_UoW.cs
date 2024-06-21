@@ -3,7 +3,7 @@ using DataLayer.DbContexts;
 using DataLayer.Models;
 using DataLayer.Repositories;
 
-namespace DataLayer.UnitOfWorks
+namespace BusinessLayer.UnitOfWorks
 {
     // ToDo: Should probably be inside Business Layer since these classes will contain all logic + are middle man between DataLayer and PresentationLayer
     public class ActiveProject_UoW : IUnitOfWork
@@ -56,6 +56,7 @@ namespace DataLayer.UnitOfWorks
         public void Dispose()
         {
             _context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public int SaveChanges()

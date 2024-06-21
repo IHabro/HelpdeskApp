@@ -27,7 +27,7 @@ namespace DataLayer.Repositories
 
         public void DeleteById(object id)
         {
-            Incident incident = _dbSet.Find(Convert.ToInt32(id));
+            var incident = _dbSet.Find(Convert.ToInt32(id));
 
             Delete(incident);
         }

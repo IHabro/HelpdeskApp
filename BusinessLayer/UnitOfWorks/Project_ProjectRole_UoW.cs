@@ -4,7 +4,7 @@ using DataLayer.Models;
 using DataLayer.Repositories;
 using DataLayer.ViewModels;
 
-namespace DataLayer.UnitOfWorks
+namespace BusinessLayer.UnitOfWorks
 {
     public class Project_ProjectRole_UoW : IUnitOfWork
     {
@@ -94,6 +94,7 @@ namespace DataLayer.UnitOfWorks
         public void Dispose()
         {
             _context.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         public int SaveChanges()
