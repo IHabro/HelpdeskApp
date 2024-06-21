@@ -1,0 +1,7 @@
+cff-version: 1.2.0
+authors:
+- family-names: "Habrnal"
+  given-names: "Vojtěch"
+title: "Semestrální projekt Helpdesk Aplikace"
+version: 1.0.0
+url: "https://github.com/IHabro/HelpdeskApp"
