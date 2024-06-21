@@ -1,0 +1,74 @@
+﻿@using DataLayer.Areas.Identity.Data
+@using DataLayer.DbContexts
+@using DataLayer.Repositories
+@using Microsoft.AspNetCore.Identity
+
+@model ActionUsersViewModel
+
+<h1>Assign Users to Action: @Model.Action.Name</h1>
+
+<h2>Available Users to notify</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationCandidates.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotificationCandidates.First().UserName)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.NotificationCandidates)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <a asp-action="AddActionToUser" asp-route-actionId="@Model.Action.Id" , asp-route-userId="@item.Id">Notify this User</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Users that will be notified</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UsersToNotify.First().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsersToNotify.First().UserName)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UsersToNotify)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <a asp-action="RemoveActionFromUser" asp-route-actionId="@Model.Action.Id", asp-route-userId="@item.Id">Hide from User</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
